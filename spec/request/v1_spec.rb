@@ -1,8 +1,10 @@
 require 'spec_helper'
+require 'json'
+require 'uuid'
 
 include Datastore::Backend
 
-client = Rack::Client.new {run Api}
+client = Rack::Client.new {run API}
 
 describe "Datastore::Backend API" do
   before do
@@ -11,7 +13,10 @@ describe "Datastore::Backend API" do
 
   describe "public data sets" do
     it "can read data sets" do
-      client.get('/v1/public/')
+      response = client.get("/v1/public/#{@entity1}")
+      response.status.should be 200
+
+      JSON.parse(response.body).should eq({})
     end
   end
 end

@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["info@thorbenschroeder.de"]
   gem.description   = %q{A backend to store and retrieve data for entities.}
   gem.summary       = %q{}
-  gem.homepage      = "http://github.com/kntl/datastore-backend"
+  gem.homepage      = "https://github.com/kntl/datastore-backend/"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
@@ -16,5 +16,4 @@ Gem::Specification.new do |gem|
   gem.version       = Datastore::Backend::VERSION
 
   gem.add_dependency 'grape', '0.2.0'
-  gem.add_dependency 'mongoid', '2.4.11'
 end
