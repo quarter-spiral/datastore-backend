@@ -1,3 +1,5 @@
 development:
   database: 'datastore-backend'
   host: localhost
+production:
+  uri: <%= ENV['MONGOLAB_URI'] %>
