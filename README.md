@@ -73,7 +73,7 @@ JSON encoded hash of the data set.
 HTTP status codes used:
 
 * **401** Request needs to be authenticated. Either there were no credentials present in the request or the given credentials are invalid.
-* **403** The authenticated party is not authorized to carry out the action requested
+* **403** The authenticated party is not authorized to carry out the action requested or a validation error occured
 * **404** No data set found int he given scope for the given UUID
 
 #### Body
@@ -107,3 +107,5 @@ A data set is a hash. Keys must be strings. Data sets support the following data
 * Strings
 * Arrays (of any allowed data types)
 * Data sets
+
+Dates and times should be represented by numeric timestamps.
