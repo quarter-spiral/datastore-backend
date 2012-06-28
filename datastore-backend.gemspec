@@ -18,4 +18,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'grape', '0.2.0'
   gem.add_dependency 'bson_ext', '1.6.4'
   gem.add_dependency 'mongoid', '2.4.11'
+  gem.add_dependency 'rack-jsonp-middleware', '0.0.5'
 end
