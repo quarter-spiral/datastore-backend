@@ -19,11 +19,28 @@ module Datastore::Backend
       end
     end
 
+    before do
+      header('Access-Control-Allow-Origin', request.env['HTTP_ORIGIN'] || '*')
+    end
+
     get "version" do
       api.version
     end
 
     namespace :public do
+      options '/' do
+        header('Access-Control-Allow-Headers', '')
+        header('Access-Control-Allow-Methods', '')
+        ""
+      end
+
+      options '/:uuid' do
+        header('Access-Control-Allow-Headers', 'origin, x-requested-with, content-type, accept')
+        header('Access-Control-Allow-Methods', 'GET,PUT,OPTIONS, POST')
+        header('Access-Control-Max-Age', '1728000')
+        ""
+      end
+
       get '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
         set ? set.payload : {}
