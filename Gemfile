@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'grape', '0.2.0'
-gem 'bson_ext', '1.6.4'
 gem 'mongoid', '2.4.11'
 gem 'rack-jsonp-middleware', '0.0.5'
 
