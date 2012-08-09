@@ -34,14 +34,14 @@ describe "Datastore::Backend API" do
     it "can read data sets" do
       response = client.get("/v1/public/#{@entity1}")
 
-      response.status.should be 200
+      response.status.should eq 200
       JSON.parse(response.body).should eq({})
     end
 
     it "can write data sets" do
       response = client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
 
-      response.status.should be 201
+      response.status.should eq 201
       data_sets_are_equal(JSON.parse(response.body), sample_data).should be true
     end
 
@@ -49,7 +49,7 @@ describe "Datastore::Backend API" do
       client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
       response = client.get("/v1/public/#{@entity1}")
 
-      response.status.should be 200
+      response.status.should eq 200
       data_sets_are_equal(JSON.parse(response.body), sample_data).should be true
     end
 
@@ -57,11 +57,11 @@ describe "Datastore::Backend API" do
       client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
       response = client.post("/v1/public/#{@entity1}", {}, JSON.dump({}))
 
-      response.status.should be 403
+      response.status.should eq 403
       JSON.parse(response.body)['error'].should_not be_empty
 
       response = client.post("/v1/public/#{@entity2}", {}, JSON.dump({test: 'yes'}))
-      response.status.should be 201
+      response.status.should eq 201
 
       response = client.get("/v1/public/#{@entity1}")
       data_sets_are_equal(JSON.parse(response.body), sample_data).should be true
@@ -74,7 +74,7 @@ describe "Datastore::Backend API" do
       client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
       response = client.put("/v1/public/#{@entity1}", {}, JSON.dump({test: 'yes'}))
 
-      response.status.should be 200
+      response.status.should eq 200
       data_sets_are_equal(JSON.parse(response.body), {'test' => 'yes'}).should be true
       response = client.get("/v1/public/#{@entity1}")
       data_sets_are_equal(JSON.parse(response.body), {'test' => 'yes'}).should be true
@@ -82,7 +82,7 @@ describe "Datastore::Backend API" do
 
     it "errors out when changing a non existing data set" do
       response = client.put("/v1/public/#{@entity1}", {}, JSON.dump({test: 'yes'}))
-      response.status.should be 404
+      response.status.should eq 404
       JSON.parse(response.body).should eq({'error' => 'Not found'})
     end
   end
