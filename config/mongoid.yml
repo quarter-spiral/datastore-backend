@@ -1,3 +1,6 @@
+test:
+  database: 'datastore-backend'
+  host: localhost
 development:
   database: 'datastore-backend'
   host: localhost
