@@ -14,4 +14,5 @@ group :development, :test do
   gem 'uuid'
   gem 'guard-rspec'
   gem 'ruby_gntp'
+  gem 'rake'
 end
