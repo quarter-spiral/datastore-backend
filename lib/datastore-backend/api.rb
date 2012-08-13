@@ -43,7 +43,8 @@ module Datastore::Backend
 
       get '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
-        set ? set.payload : {}
+        raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+        set.payload
       end
 
       post '/:uuid' do

@@ -31,11 +31,10 @@ describe "Datastore::Backend API" do
   end
 
   describe "public data sets" do
-    it "can read data sets" do
+    it "not existing set returns 404" do
       response = client.get("/v1/public/#{@entity1}")
 
-      response.status.should eq 200
-      JSON.parse(response.body).should eq({})
+      response.status.should eq 404
     end
 
     it "can write data sets" do
