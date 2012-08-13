@@ -11,4 +11,10 @@ require 'datastore-backend/api'
 ENV['RACK_ENV'] ||= 'development'
 
 Mongoid.logger.level = Logger::WARN
-Mongoid.load!(File.expand_path('./config/mongoid.yml', Datastore::Backend::ROOT))
+
+# Path to the mongoig config file passed in for embedded purposes
+mongo_config_path = ENV['DATASTORE_BACKEND_MONGOID_CONFIG']
+# Default path to the mongoid config
+mongo_config_path ||= File.expand_path('./config/mongoid.yml', Datastore::Backend::ROOT)
+
+Mongoid.load!(mongo_config_path)
