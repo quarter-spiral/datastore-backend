@@ -2,11 +2,24 @@
 
 A backend to store and retrieve data for [*entities*](#entity).
 
+## Setup
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+* MongoDB
+
 ## API
 
 Every entity can save a public and a private [*data sets*](#data-set). The public data sets a world readable while the private sets can only be read by [*authorized parties*](#authorized-party). New data sets can only be created by authorized parties. As well can changes to existing data sets only be made by authorized parties.
 
 The data store must be accessed by HTTPS.
+
+### Versioning
+
+The current version of the API is ``v1``. **All URLs must be prefixed
+with ``/v1``!**
 
 ### Create a new data set
 
