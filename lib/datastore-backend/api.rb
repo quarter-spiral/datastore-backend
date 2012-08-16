@@ -1,4 +1,5 @@
 require 'grape'
+require 'uuid'
 
 module Datastore::Backend
   class API < ::Grape::API
