@@ -17,6 +17,10 @@ module Datastore::Backend
       def payload
         JSON.parse(request.body.string)
       end
+
+      def response_from_set(set)
+        {uuid: set.entity, data: set.payload}
+      end
     end
 
     before do
@@ -44,19 +48,19 @@ module Datastore::Backend
       get '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
         raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
-        set.payload
+        response_from_set set
       end
 
       post '/:uuid' do
         set = DataSet.create!(entity: params[:uuid], payload: payload)
-        set.payload
+        response_from_set set
       end
 
       put '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
         raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
         set.update_attributes(payload: payload)
-        set.payload
+        response_from_set set
       end
     end
   end

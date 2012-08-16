@@ -17,11 +17,22 @@ def same_data_set_value(one, another)
   end
 end
 
-def response_matches(response, expected_data)
-  data = JSON.parse(response.body)
-  result = true
+def response_matches(response, expected_uuid, expected_data)
+  json = JSON.parse(response.body)
+  data = json['data']
+  uuid = json['uuid']
+  result = expected_uuid == uuid
   data.each do |key, value|
     result = result && same_data_set_value(value, expected_data[key])
+  end
+
+  unless result
+    puts "Failed response check."
+    if uuid != expected_uuid
+      puts "Expected UUID to be #{expected_uuid} but was #{uuid}."
+    else
+      puts "Data set mismatch. Expected: #{expected_data.inspect} got #{data.inspect}"
+    end
   end
 
   result

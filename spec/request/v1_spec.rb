@@ -39,7 +39,7 @@ describe "Datastore::Backend API" do
       response = client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
 
       response.status.should eq 201
-      response_matches(response, sample_data).should be true
+      response_matches(response, @entity1, sample_data).should be true
     end
 
     it "can read data set after writing it" do
@@ -47,7 +47,7 @@ describe "Datastore::Backend API" do
       response = client.get("/v1/public/#{@entity1}")
 
       response.status.should eq 200
-      response_matches(response, sample_data).should be true
+      response_matches(response, @entity1, sample_data).should be true
     end
 
     it "errors out when creating a second data set for the same entity" do
@@ -61,10 +61,10 @@ describe "Datastore::Backend API" do
       response.status.should eq 201
 
       response = client.get("/v1/public/#{@entity1}")
-      response_matches(response, sample_data).should be true
+      response_matches(response, @entity1, sample_data).should be true
 
       response = client.get("/v1/public/#{@entity2}")
-      response_matches(response, {'test' => 'yes'}).should be true
+      response_matches(response, @entity2, {'test' => 'yes'}).should be true
     end
 
     it "can change an entry" do
@@ -72,9 +72,9 @@ describe "Datastore::Backend API" do
       response = client.put("/v1/public/#{@entity1}", {}, JSON.dump({test: 'yes'}))
 
       response.status.should eq 200
-      response_matches(response, {'test' => 'yes'}).should be true
+      response_matches(response, @entity1, {'test' => 'yes'}).should be true
       response = client.get("/v1/public/#{@entity1}")
-      response_matches(response, {'test' => 'yes'}).should be true
+      response_matches(response, @entity1, {'test' => 'yes'}).should be true
     end
 
     it "errors out when changing a non existing data set" do
