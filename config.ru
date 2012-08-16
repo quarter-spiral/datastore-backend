@@ -1,7 +1,5 @@
 require 'rubygems'
-require 'bundler'
-
-Bundler.require
+require 'bundler/setup'
 
 require 'datastore-backend'
 require 'rack/jsonp'

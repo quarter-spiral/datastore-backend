@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'mongoid', '2.4.11'
   gem.add_dependency 'rack-jsonp-middleware', '0.0.5'
   gem.add_dependency 'json', '1.7.4'
+  gem.add_dependency 'uuid'
 end
