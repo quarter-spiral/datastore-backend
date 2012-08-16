@@ -17,10 +17,11 @@ def same_data_set_value(one, another)
   end
 end
 
-def data_sets_are_equal(one, another)
+def response_matches(response, expected_data)
+  data = JSON.parse(response.body)
   result = true
-  one.each do |key, value|
-    result = result && same_data_set_value(value, another[key])
+  data.each do |key, value|
+    result = result && same_data_set_value(value, expected_data[key])
   end
 
   result
