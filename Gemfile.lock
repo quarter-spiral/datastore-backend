@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    datastore-backend (0.0.2)
+    datastore-backend (0.0.3)
       grape (= 0.2.0)
       json (= 1.7.4)
       mongoid (= 2.4.11)
