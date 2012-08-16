@@ -30,7 +30,7 @@ with ``/v1``!**
 ##### Parameters
 
 - **scope** [URL] [REQUIRED]: ``private`` or ``public``
-- **UUID** [URL] [REQUIRED]: The UUID of the entity the data set should be created for
+- **UUID** [URL] [OPTIONAL]: The UUID of the entity the data set should be created for. If not provided a new UUID is generated.
 
 ##### Body
 JSON encoded hash to be stored.
@@ -39,7 +39,9 @@ JSON encoded hash to be stored.
 
 ##### Body
 
-JSON encoded hash of the created data set.
+JSON encoded hash like this:
+```{"uuid": "the-uuid-of-the-document", "data": "{\"some\":
+\"data\"}"}```
 
 ### Change a data set
 
@@ -59,7 +61,9 @@ JSON encoded hash to be stored.
 
 ##### Body
 
-JSON encoded hash of the stored data set.
+JSON encoded hash like this:
+```{"uuid": "the-uuid-of-the-document", "data": "{\"some\":
+\"data\"}"}```
 
 ### Retrieve a data set
 
@@ -79,7 +83,9 @@ Empty
 
 ##### Body
 
-JSON encoded hash of the data set.
+JSON encoded hash like this:
+```{"uuid": "the-uuid-of-the-document", "data": "{\"some\":
+\"data\"}"}```
 
 ### Error case response
 
