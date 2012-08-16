@@ -1,3 +1,7 @@
+# 0.0.4
+
+* Fixes bug that prevented the server from booting
+
 # 0.0.3
 
 * Makes it possible to create data sets without specifying a UUID. A new
