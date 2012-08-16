@@ -21,6 +21,11 @@ module Datastore::Backend
       def response_from_set(set)
         {uuid: set.entity, data: set.payload}
       end
+
+      def create_set(uuid)
+        set = DataSet.create!(entity: uuid, payload: payload)
+        response_from_set set
+      end
     end
 
     before do
@@ -51,9 +56,12 @@ module Datastore::Backend
         response_from_set set
       end
 
+      post '/' do
+        create_set(UUID.new.generate)
+      end
+
       post '/:uuid' do
-        set = DataSet.create!(entity: params[:uuid], payload: payload)
-        response_from_set set
+        create_set(params[:uuid])
       end
 
       put '/:uuid' do

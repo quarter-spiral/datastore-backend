@@ -42,6 +42,16 @@ describe "Datastore::Backend API" do
       response_matches(response, @entity1, sample_data).should be true
     end
 
+    it "can create data sets without an UUID" do
+      response = client.post("/v1/public", {}, JSON.dump(sample_data))
+
+      response.status.should eq 201
+      uuid = JSON.parse(response.body)['uuid']
+      uuid.should_not be_nil
+      uuid.should_not be_empty
+      response_matches(response, uuid, sample_data).should be true
+    end
+
     it "can read data set after writing it" do
       client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
       response = client.get("/v1/public/#{@entity1}")
