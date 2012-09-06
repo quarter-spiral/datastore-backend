@@ -47,12 +47,16 @@ JSON encoded hash like this:
 
 #### Request
 
-**PUT** ``/:scope:/:UUID:``
+**PUT** ``/:scope:/:UUID:/:key:``
 
 ##### Parameters
 
 - **scope** [URL] [REQUIRED]: ``private`` or ``public``
 - **UUID** [URL] [REQUIRED]: The UUID of the entity the data set should be created for
+- **key** [URL] [OPTIONAL]: Makes it possible to change only a subset of
+  the stored data. The key determines which key in the hash is changed.
+You can nest the key by separating it with a ``/`` (slash). If no key is
+specified the whole data set will be replaced.
 
 ##### Body
 JSON encoded hash to be stored.
@@ -64,6 +68,108 @@ JSON encoded hash to be stored.
 JSON encoded hash like this:
 ```{"uuid": "the-uuid-of-the-document", "data": "{\"some\":
 \"data\"}"}```
+
+The response always contains the whole data set no matter if only a sub
+set of the data set was changed (via a ``key`` parameter).
+
+#### Example
+
+##### Changing the whole data set
+
+Send a ``PUT`` to ``/public/some-uuid`` with a JSON body like this
+``{"some": "value"}``.
+
+##### Changing a subset of a data set
+
+If you have a data set with the uuid ``some-uuid`` that looks like this:
+
+```javascript
+{
+  "colors": {
+    "red": 100,
+    "yellow": 12
+  },
+  "name": "A cool thing"
+}
+```
+
+you could change it's name like this:
+
+Send a ``PUT`` to ``/public/some-uuid/name`` with a JSON body like this
+``{"name": "Another name"}``.
+
+The data set would then look like this:
+
+```javascript
+{
+  "colors": {
+    "red": 100,
+    "yellow": 12
+  },
+  "name": "Another name"
+}
+```
+
+You could change the count of the color red like this:
+
+Send a ``PUT`` to ``/public/some-uuid/colors/red`` with a JSON body like
+this ``{"red": 99}``.
+
+The data set would then look like this:
+
+```javascript
+{
+  "colors": {
+    "red": 99,
+    "yellow": 12
+  },
+  "name": "A cool thing"
+}
+```
+
+You could also change the count of all colors like this:
+
+Send a ``PUT`` to ``/public/some-uuid/colors`` with a JSON body like
+this ``{"colors": {"red": 92, "yellow": 10, "purple": 30}}``.
+
+The data set would then look like this:
+
+```javascript
+{
+  "colors": {
+    "red": 92,
+    "yellow": 10,
+    "purple": 30
+  },
+  "name": "A cool thing"
+}
+```
+
+It is also possible to add arbitrary nested hashed to the data set that
+does not exist yet like this:
+
+Send a ``PUT`` to ``/public/some-uuid/some/strange/thing`` with a JSON
+body like this ``{"thing": {"yay": "YO"}}``.
+
+The data set would then look like this:
+
+
+```javascript
+{
+  "colors": {
+    "red": 100,
+    "yellow": 12
+  },
+  "name": "A cool thing",
+  "some": {
+    "strange": {
+      "thing": {
+        "yay": "YO"
+      }
+    }
+  }
+}
+```
 
 ### Retrieve a data set
 

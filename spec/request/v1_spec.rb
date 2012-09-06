@@ -77,7 +77,7 @@ describe "Datastore::Backend API" do
       response_matches(response, @entity2, {'test' => 'yes'}).should be true
     end
 
-    it "can change an entry" do
+    it "can change a data set" do
       client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
       response = client.put("/v1/public/#{@entity1}", {}, JSON.dump({test: 'yes'}))
 
@@ -85,6 +85,43 @@ describe "Datastore::Backend API" do
       response_matches(response, @entity1, {'test' => 'yes'}).should be true
       response = client.get("/v1/public/#{@entity1}")
       response_matches(response, @entity1, {'test' => 'yes'}).should be true
+    end
+
+    describe "changing only some keys of a data set" do
+      before do
+        client.post("/v1/public/#{@entity1}", {}, JSON.dump(sample_data))
+      end
+
+      after do
+        response_matches(@response, @entity1, @expected_data).should be true
+        response = client.get("/v1/public/#{@entity1}")
+        response_matches(response, @entity1, @expected_data).should be true
+      end
+
+      it "works with simple values" do
+        @response = client.put("/v1/public/#{@entity1}/integer", {}, JSON.dump({'integer' => 456}))
+        @expected_data = sample_data.merge('integer' => 456)
+      end
+
+      it "works with whole hashes" do
+        @response = client.put("/v1/public/#{@entity1}/set", {}, JSON.dump({'set' => {'bla' => 'blub'}}))
+        @expected_data = sample_data.merge('set' => {'bla' => 'blub'})
+      end
+
+      it "works with sub hashes" do
+        @response = client.put("/v1/public/#{@entity1}/set/key", {}, JSON.dump({'key' => 'blub'}))
+        @expected_data = sample_data.merge('set' => sample_data['set'].merge('key' => 'blub'))
+      end
+
+      it "creats non existing keys in existing hashes" do
+        @response = client.put("/v1/public/#{@entity1}/set/newkey", {}, JSON.dump({'newkey' => 'blub'}))
+        @expected_data = sample_data.merge('set' => sample_data['set'].merge('newkey' => 'blub'))
+      end
+
+      it "creates whole hashes" do
+        @response = client.put("/v1/public/#{@entity1}/new/some/key", {}, JSON.dump({'key' => 'blub'}))
+        @expected_data = sample_data.merge('new' => {'some' => {'key' => 'blub'}})
+      end
     end
 
     it "errors out when changing a non existing data set" do

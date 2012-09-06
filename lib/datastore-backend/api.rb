@@ -54,6 +54,7 @@ module Datastore::Backend
       get '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
         raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+
         response_from_set set
       end
 
@@ -68,7 +69,16 @@ module Datastore::Backend
       put '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
         raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+
         set.update_attributes(payload: payload)
+        response_from_set set
+      end
+
+      put '/:uuid/*key' do
+        set = DataSet.where(entity: params[:uuid]).first
+        raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+
+        set.partial_update_attributes(params[:key], payload)
         response_from_set set
       end
     end
