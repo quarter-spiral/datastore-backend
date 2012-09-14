@@ -13,5 +13,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'ruby_gntp'
   gem 'rake'
-  gem 'thin'
+
+  platform :ruby do
+    gem 'thin'
+  end
 end
