@@ -16,7 +16,9 @@ module Datastore::Backend
 
     helpers do
       def payload
-        JSON.parse(request.body.string)
+        body = request.body
+        body = body.read if body.respond_to?(:read)
+        JSON.parse(body)
       end
 
       def response_from_set(set)

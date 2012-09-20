@@ -1,3 +1,7 @@
+# 0.0.5 - in progress
+
+* Hardens the API for the use behind Rack::Lint
+
 # 0.0.4
 
 * Fixes bug that prevented the server from booting
