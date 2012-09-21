@@ -16,9 +16,12 @@ module Datastore::Backend
 
     helpers do
       def payload
+        return @payload if @payload
+
         body = request.body
-        body = body.read if body.respond_to?(:read)
-        JSON.parse(body)
+        body =body.read if body.respond_to?(:read)
+
+        @payload = JSON.parse(body)
       end
 
       def response_from_set(set)
@@ -56,7 +59,6 @@ module Datastore::Backend
       get '/:uuid' do
         set = DataSet.where(entity: params[:uuid]).first
         raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
-
         response_from_set set
       end
 
