@@ -1,3 +1,6 @@
+# 0.0.6
+* Adds thin to the main bundle to run on heroku
+
 # 0.0.5
 
 * Makes it possible to change parts of data sets
