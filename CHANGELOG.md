@@ -1,6 +1,8 @@
-# 0.0.5 - in progress
+# 0.0.5
 
+* Makes it possible to change parts of data sets
 * Hardens the API for the use behind Rack::Lint
+* A lot of ``metaserver`` related improvements
 
 # 0.0.4
 
