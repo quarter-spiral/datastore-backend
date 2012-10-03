@@ -1,3 +1,4 @@
+require 'auth-client'
 require 'grape'
 require 'uuid'
 
@@ -32,10 +33,18 @@ module Datastore::Backend
         set = DataSet.create!(entity: uuid, payload: payload)
         response_from_set set
       end
+
+      def connection
+        @connection ||= Connection.create
+      end
     end
 
     before do
       header('Access-Control-Allow-Origin', request.env['HTTP_ORIGIN'] || '*')
+
+      error!('Unauthenticated', 403) unless request.env['HTTP_AUTHORIZATION']
+      token = request.env['HTTP_AUTHORIZATION'].gsub(/^Bearer\s+/, '')
+      error!('Unauthenticated', 403) unless connection.auth.token_valid?(token)
     end
 
     get "version" do
@@ -88,3 +97,4 @@ module Datastore::Backend
     end
   end
 end
+

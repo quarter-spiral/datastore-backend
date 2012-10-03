@@ -1,6 +1,9 @@
+ENV['RACK_ENV'] ||= 'test'
+
 Bundler.require
 
 require 'datastore-backend'
+require 'auth-backend'
 
 require 'rack/client'
 

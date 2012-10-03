@@ -6,6 +6,7 @@ end
 
 require 'datastore-backend/version'
 require 'datastore-backend/data_set'
+require 'datastore-backend/connection'
 require 'datastore-backend/api'
 
 ENV['RACK_ENV'] ||= 'development'
