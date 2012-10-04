@@ -23,6 +23,4 @@ group :development, :test do
   gem 'sqlite3'
   gem 'sinatra_warden', git: 'https://github.com/quarter-spiral/sinatra_warden.git'
   gem 'songkick-oauth2-provider', git: 'https://github.com/quarter-spiral/oauth2-provider.git'
-
-  gem 'auth-client', "~> 0.0.6"
 end
