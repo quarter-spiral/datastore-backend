@@ -1,3 +1,7 @@
+# 0.0.8
+
+* ``OPTIONS`` requests don't need to be authenticated anymore
+
 # 0.0.7
 
 * Secures all requests with OAuth2
