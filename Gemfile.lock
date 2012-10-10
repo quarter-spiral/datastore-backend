@@ -20,6 +20,7 @@ PATH
   remote: .
   specs:
     datastore-backend (0.0.7)
+      auth-client (= 0.0.6)
       grape (= 0.2.0)
       json (= 1.7.4)
       mongoid (= 2.4.11)
@@ -68,6 +69,7 @@ GEM
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
     bson (1.6.4)
+    bson (1.6.4-java)
     bson_ext (1.6.4)
       bson (~> 1.6.4)
     builder (3.0.3)
@@ -184,7 +186,6 @@ PLATFORMS
 
 DEPENDENCIES
   auth-backend (~> 0.0.3)
-  auth-client (~> 0.0.6)
   bson_ext
   datastore-backend!
   guard-rspec
