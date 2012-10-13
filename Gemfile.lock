@@ -19,8 +19,8 @@ GIT
 PATH
   remote: .
   specs:
-    datastore-backend (0.0.8)
-      auth-client (= 0.0.6)
+    datastore-backend (0.0.9)
+      auth-client (>= 0.0.6)
       grape (= 0.2.0)
       json (= 1.7.4)
       mongoid (= 2.4.11)
@@ -64,7 +64,7 @@ GEM
       sinatra-activerecord
       sinatra-flash
       uuid
-    auth-client (0.0.6)
+    auth-client (0.0.7)
       service-client (>= 0.0.6)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
