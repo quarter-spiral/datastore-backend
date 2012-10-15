@@ -10,6 +10,7 @@ end
 
 platform :ruby do
   gem 'thin'
+  gem 'shotgun'
 end
 
 group :development, :test do
