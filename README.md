@@ -47,7 +47,7 @@ JSON encoded hash like this:
 
 #### Request
 
-**PUT** ``/:scope:/:UUID:/:key:``
+**PUT** to ``/:scope:/:UUID:/:key:``
 
 ##### Parameters
 
@@ -175,7 +175,7 @@ The data set would then look like this:
 
 #### Request
 
-**GET** ``/:scope:/:UUID:``
+**GET** to ``/:scope:/:UUID:``
 
 ##### Parameters
 
@@ -192,6 +192,16 @@ Empty
 JSON encoded hash like this:
 ```{"uuid": "the-uuid-of-the-document", "data": "{\"some\":
 \"data\"}"}```
+
+### Query for data sets
+
+In order to retrieve all data sets meeting a given criteria at once you can use the query API. It allows you write MongoDB like queries to express your criteria. The actual query syntax is described in detail below.
+
+To access the query API you need to authorize with an app level access token.
+
+#### Request
+
+**GET** to ``/tbd``
 
 ### Error case response
 
