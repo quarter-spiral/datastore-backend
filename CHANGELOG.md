@@ -1,3 +1,7 @@
+# 0.0.11 WIP
+
+* Moves to a fixed grape gem hosted on our own gem server instead of a git link
+
 # 0.0.10
 
 * Refactors API and dismisses the public/private scopes completely

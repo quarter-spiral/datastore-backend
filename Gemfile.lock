@@ -16,26 +16,12 @@ GIT
       sinatra (>= 1.0.0)
       warden (~> 1.0)
 
-GIT
-  remote: https://github.com/walski/grape.git
-  revision: f1856a4995a53867a8023a7bb6e86c60c50fcc6a
-  branch: fix-86
-  specs:
-    grape (0.2.3)
-      activesupport
-      hashie (~> 1.2)
-      multi_json (>= 1.3.2)
-      multi_xml
-      rack
-      rack-accept
-      rack-mount
-      virtus
-
 PATH
   remote: .
   specs:
     datastore-backend (0.0.10)
       auth-client (>= 0.0.6)
+      grape (= 0.2.3.qs)
       json (= 1.7.4)
       mongoid (= 2.4.11)
       rack-jsonp-middleware (= 0.0.5)
@@ -84,6 +70,7 @@ GEM
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
     bson (1.6.4)
+    bson (1.6.4-java)
     bson_ext (1.6.4)
       bson (~> 1.6.4)
     builder (3.0.3)
@@ -95,6 +82,15 @@ GEM
       multipart-post (~> 1.1)
     ffi (1.0.11)
     ffi (1.0.11-java)
+    grape (0.2.3.qs)
+      activesupport
+      hashie (~> 1.2)
+      multi_json (>= 1.3.2)
+      multi_xml
+      rack
+      rack-accept
+      rack-mount
+      virtus
     guard (1.0.2)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
@@ -200,7 +196,6 @@ DEPENDENCIES
   auth-backend (~> 0.0.3)
   bson_ext
   datastore-backend!
-  grape!
   guard-rspec
   rack-client
   rake

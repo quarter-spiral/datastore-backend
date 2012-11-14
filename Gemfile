@@ -12,8 +12,6 @@ platform :ruby do
   gem 'thin'
 end
 
-gem 'grape', git: 'https://github.com/walski/grape.git', branch: 'fix-86'
-
 group :development, :test do
   gem 'rack-client'
   gem 'rspec', '~> 2.10.0'

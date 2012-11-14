@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Datastore::Backend::VERSION
 
-  #gem.add_dependency 'grape', '0.2.2'
+  gem.add_dependency 'grape', '0.2.3.qs'
   gem.add_dependency 'mongoid', '2.4.11'
   gem.add_dependency 'rack-jsonp-middleware', '0.0.5'
   gem.add_dependency 'json', '1.7.4'
