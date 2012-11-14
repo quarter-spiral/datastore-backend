@@ -1,4 +1,4 @@
-# 0.0.11 WIP
+# 0.0.11
 
 * Moves to a fixed grape gem hosted on our own gem server instead of a git link
 
