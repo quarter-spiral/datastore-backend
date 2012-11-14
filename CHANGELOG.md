@@ -1,3 +1,7 @@
+# 0.0.10 WIP
+
+* Refactors API and dismisses the public/private scopes completely
+
 # 0.0.9
 
 * Relaxes dependency on auth-client

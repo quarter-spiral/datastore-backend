@@ -12,7 +12,7 @@ Make sure you have the following installed:
 
 ## API
 
-Every entity can save a public and a private [*data sets*](#data-set). The public data sets a world readable while the private sets can only be read by [*authorized parties*](#authorized-party). New data sets can only be created by authorized parties. As well can changes to existing data sets only be made by authorized parties.
+Every entity can save a [*data sets*](#data-set). The data sets can only be read by [*authorized parties*](#authorized-party). New data sets can only be created by authorized parties. As well can changes to existing data sets only be made by authorized parties.
 
 The data store must be accessed by HTTPS.
 
@@ -25,11 +25,10 @@ with ``/v1``!**
 
 #### Request
 
-**POST** ``/:scope:/:UUID:``
+**POST** ``/:UUID:``
 
 ##### Parameters
 
-- **scope** [URL] [REQUIRED]: ``private`` or ``public``
 - **UUID** [URL] [OPTIONAL]: The UUID of the entity the data set should be created for. If not provided a new UUID is generated.
 
 ##### Body
@@ -47,11 +46,10 @@ JSON encoded hash like this:
 
 #### Request
 
-**PUT** ``/:scope:/:UUID:/:key:``
+**PUT** ``/:UUID:/:key:``
 
 ##### Parameters
 
-- **scope** [URL] [REQUIRED]: ``private`` or ``public``
 - **UUID** [URL] [REQUIRED]: The UUID of the entity the data set should be created for
 - **key** [URL] [OPTIONAL]: Makes it possible to change only a subset of
   the stored data. The key determines which key in the hash is changed.
@@ -76,7 +74,7 @@ set of the data set was changed (via a ``key`` parameter).
 
 ##### Changing the whole data set
 
-Send a ``PUT`` to ``/public/some-uuid`` with a JSON body like this
+Send a ``PUT`` to ``/some-uuid`` with a JSON body like this
 ``{"some": "value"}``.
 
 ##### Changing a subset of a data set
@@ -95,7 +93,7 @@ If you have a data set with the uuid ``some-uuid`` that looks like this:
 
 you could change it's name like this:
 
-Send a ``PUT`` to ``/public/some-uuid/name`` with a JSON body like this
+Send a ``PUT`` to ``/some-uuid/name`` with a JSON body like this
 ``{"name": "Another name"}``.
 
 The data set would then look like this:
@@ -112,7 +110,7 @@ The data set would then look like this:
 
 You could change the count of the color red like this:
 
-Send a ``PUT`` to ``/public/some-uuid/colors/red`` with a JSON body like
+Send a ``PUT`` to ``/some-uuid/colors/red`` with a JSON body like
 this ``{"red": 99}``.
 
 The data set would then look like this:
@@ -129,7 +127,7 @@ The data set would then look like this:
 
 You could also change the count of all colors like this:
 
-Send a ``PUT`` to ``/public/some-uuid/colors`` with a JSON body like
+Send a ``PUT`` to ``/some-uuid/colors`` with a JSON body like
 this ``{"colors": {"red": 92, "yellow": 10, "purple": 30}}``.
 
 The data set would then look like this:
@@ -148,7 +146,7 @@ The data set would then look like this:
 It is also possible to add arbitrary nested hashed to the data set that
 does not exist yet like this:
 
-Send a ``PUT`` to ``/public/some-uuid/some/strange/thing`` with a JSON
+Send a ``PUT`` to ``/some-uuid/some/strange/thing`` with a JSON
 body like this ``{"thing": {"yay": "YO"}}``.
 
 The data set would then look like this:
@@ -175,11 +173,10 @@ The data set would then look like this:
 
 #### Request
 
-**GET** ``/:scope:/:UUID:``
+**GET** ``/:UUID:``
 
 ##### Parameters
 
-- **scope** [URL] [REQUIRED]: ``private`` or ``public``
 - **UUID** [URL] [REQUIRED]: The UUID of the entity the data set should be created for
 
 ##### Body
@@ -199,7 +196,7 @@ HTTP status codes used:
 
 * **401** Request needs to be authenticated. Either there were no credentials present in the request or the given credentials are invalid.
 * **403** The authenticated party is not authorized to carry out the action requested or a validation error occured
-* **404** No data set found int he given scope for the given UUID
+* **404** No data set found for the given UUID
 
 #### Body
 

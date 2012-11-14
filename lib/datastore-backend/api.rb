@@ -4,7 +4,7 @@ require 'uuid'
 
 module Datastore::Backend
   class API < ::Grape::API
-    version 'v1', :using => :path, :vendor => 'kntl'
+    version 'v1', :using => :path, :vendor => 'qs'
 
     format :json
     default_format :json
@@ -53,50 +53,47 @@ module Datastore::Backend
       api.version
     end
 
-    namespace :public do
-      options '/' do
-        header('Access-Control-Allow-Headers', '')
-        header('Access-Control-Allow-Methods', '')
-        ""
-      end
+    options '/' do
+      header('Access-Control-Allow-Headers', '')
+      header('Access-Control-Allow-Methods', '')
+      ""
+    end
 
-      options '/:uuid' do
-        header('Access-Control-Allow-Headers', 'origin, x-requested-with, content-type, accept, authorization')
-        header('Access-Control-Allow-Methods', 'GET,PUT,OPTIONS, POST')
-        header('Access-Control-Max-Age', '1728000')
-        ""
-      end
+    options '/:uuid' do
+      header('Access-Control-Allow-Headers', 'origin, x-requested-with, content-type, accept, authorization')
+      header('Access-Control-Allow-Methods', 'GET,PUT,OPTIONS, POST')
+      header('Access-Control-Max-Age', '1728000')
+      ""
+    end
 
-      get '/:uuid' do
-        set = DataSet.where(entity: params[:uuid]).first
-        raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
-        response_from_set set
-      end
+    get '/:uuid' do
+      set = DataSet.where(entity: params[:uuid]).first
+      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+      response_from_set set
+    end
 
-      post '/' do
-        create_set(UUID.new.generate)
-      end
+    post '/:uuid' do
+      create_set(params[:uuid])
+    end
 
-      post '/:uuid' do
-        create_set(params[:uuid])
-      end
+    post '/' do
+      create_set(UUID.new.generate)
+    end
 
-      put '/:uuid' do
-        set = DataSet.where(entity: params[:uuid]).first
-        raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+    put '/:uuid' do
+      set = DataSet.where(entity: params[:uuid]).first
+      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
 
-        set.update_attributes(payload: payload)
-        response_from_set set
-      end
+      set.update_attributes(payload: payload)
+      response_from_set set
+    end
 
-      put '/:uuid/*key' do
-        set = DataSet.where(entity: params[:uuid]).first
-        raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+    put '/:uuid/*key' do
+      set = DataSet.where(entity: params[:uuid]).first
+      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
 
-        set.partial_update_attributes(params[:key], payload)
-        response_from_set set
-      end
+      set.partial_update_attributes(params[:key], payload)
+      response_from_set set
     end
   end
 end
-

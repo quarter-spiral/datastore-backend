@@ -2,6 +2,7 @@ ENV['RACK_ENV'] ||= 'test'
 
 Bundler.require
 
+require 'rspec'
 require 'datastore-backend'
 require 'auth-backend'
 
