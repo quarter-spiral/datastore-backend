@@ -1,4 +1,4 @@
-# 0.0.10 WIP
+# 0.0.10
 
 * Refactors API and dismisses the public/private scopes completely
 
