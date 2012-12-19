@@ -21,4 +21,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'json', '1.7.4'
   gem.add_dependency 'uuid'
   gem.add_dependency 'auth-client', ">= 0.0.6"
+  gem.add_dependency 'newrelic_rpm', '~> 3.5.4.33'
+  gem.add_dependency 'ping-middleware', '~> 0.0.2'
 end
