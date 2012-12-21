@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    datastore-backend (0.0.12)
+    datastore-backend (0.0.13)
       auth-client (>= 0.0.6)
       grape (= 0.2.3.qs)
       grape_newrelic (~> 0.0.3)
