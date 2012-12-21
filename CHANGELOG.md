@@ -1,3 +1,7 @@
+# 0.0.13 WIP
+
+* Improve Newrelic instrumenting
+
 # 0.0.12
 
 * Adds Newrelic monitoring and ping middleware

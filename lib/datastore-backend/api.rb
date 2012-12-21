@@ -1,9 +1,11 @@
 require 'auth-client'
 require 'grape'
+require 'grape_newrelic'
 require 'uuid'
 
 module Datastore::Backend
   class API < ::Grape::API
+    use GrapeNewrelic::Instrumenter
     version 'v1', :using => :path, :vendor => 'qs'
 
     format :json
