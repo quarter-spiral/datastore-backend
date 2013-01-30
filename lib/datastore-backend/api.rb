@@ -68,6 +68,15 @@ module Datastore::Backend
       ""
     end
 
+    get '/batch' do
+      uuids = params[:uuids]
+      uuids = JSON.parse(uuids) if uuids.kind_of?(String)
+
+      sets = DataSet.where(entity: {'$in' => uuids})
+
+      Hash[sets.map {|set| [set.entity, response_from_set(set)]}]
+    end
+
     get '/:uuid' do
       set = DataSet.where(entity: params[:uuid]).first
       raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set

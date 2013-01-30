@@ -1,3 +1,7 @@
+# 0.0.14 WIP
+
+* Adds endpoint for batch retrieval of data sets
+
 # 0.0.13
 
 * Improve Newrelic instrumenting

@@ -208,6 +208,41 @@ Reason for the error encoded on JSON. Example:
 }
 ```
 
+### Retrieve a batch of data sets
+
+#### Request
+
+**GET** ``/batch``
+
+##### Body
+
+A JSON encoded object.
+
+##### Parameters
+
+**uuids**: An array of UUIDs to retrieve.
+
+#### Response
+
+##### Body
+
+JSON encoded hash of the requested data sets like this:
+
+```javascript
+{
+  "some-uuid": {
+    "uuid": "some-uuid",
+    "data": {"some": "data"}
+  },
+  "some-other-uuid": {
+    "uuid": "some-other-uuid",
+    "data": {"some-more": "different data"}
+  }
+}
+```
+
+If a data set can not be found it will not be present in the response hash.
+
 ## Glosary
 
 ### Entity

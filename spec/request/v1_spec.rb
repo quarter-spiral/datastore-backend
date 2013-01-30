@@ -128,6 +128,22 @@ describe "Datastore::Backend API" do
         response_matches(response, @entity1, sample_data).should be true
       end
 
+      it "can retrieve batches of data sets" do
+        client.post("/v1/#{@entity1}", {}, JSON.dump(sample_data))
+
+        sample_data_2 = {"bla" => "blub", "yeah" => false}
+        client.post("/v1/#{@entity2}", {}, JSON.dump(sample_data_2))
+
+        not_existing_entity = @entity1.reverse
+        response = client.get("/v1/batch?uuids=#{CGI.escape(JSON.dump([@entity1, @entity2, not_existing_entity]))}")
+
+        response.status.should eq 200
+        JSON.parse(response.body).should eq(
+          @entity1 => {"uuid" => @entity1, "data" => sample_data},
+          @entity2 => {"uuid" => @entity2, "data" => sample_data_2}
+        )
+      end
+
       it "errors out when creating a second data set for the same entity" do
         client.post("/v1/#{@entity1}", {}, JSON.dump(sample_data))
         response = client.post("/v1/#{@entity1}", {}, JSON.dump({}))
