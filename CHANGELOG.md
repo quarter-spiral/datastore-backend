@@ -1,4 +1,4 @@
-# 0.0.14 WIP
+# 0.0.14
 
 * Adds endpoint for batch retrieval of data sets
 
