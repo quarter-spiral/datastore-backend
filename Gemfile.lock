@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    datastore-backend (0.0.14)
+    datastore-backend (0.0.15)
       auth-client (>= 0.0.6)
       grape (= 0.2.3.qs)
       grape_newrelic (~> 0.0.3)
@@ -72,7 +72,6 @@ GEM
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
     bson (1.6.4)
-    bson (1.6.4-java)
     bson_ext (1.6.4)
       bson (~> 1.6.4)
     builder (3.0.3)
