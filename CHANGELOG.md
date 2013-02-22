@@ -1,3 +1,7 @@
+# 0.0.15 WIP
+
+* Updates json
+
 # 0.0.14
 
 * Adds endpoint for batch retrieval of data sets
