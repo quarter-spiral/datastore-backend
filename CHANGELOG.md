@@ -1,3 +1,7 @@
+# 0.0.17 WIP
+
+* Fixes Ruby version on Heroku
+
 # 0.0.16
 
 * Updates depencies

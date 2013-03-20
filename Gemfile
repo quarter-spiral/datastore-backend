@@ -4,6 +4,8 @@ source "https://user:We267RFF7BfwVt4LdqFA@privategems.herokuapp.com/"
 # Specify your gem's dependencies in datastore-backend.gemspec
 gemspec
 
+ruby '1.9.3'
+
 platforms :rbx do
   gem 'bson_ext'
 end
