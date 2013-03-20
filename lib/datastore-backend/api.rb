@@ -15,7 +15,7 @@ module Datastore::Backend
     rescue_from Mongoid::Errors::DocumentNotFound do
       Rack::Response.new([ JSON.dump({error: 'Not found'}) ], 404, { "Content-type" => "application/json" }).finish
     end
-    error_format :json
+    default_error_formatter :json
 
     helpers do
       def payload
