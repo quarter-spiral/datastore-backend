@@ -1,54 +1,12 @@
 require_relative '../spec_helper'
-require 'json'
-require 'uuid'
 
 include Datastore::Backend
-
-class AuthenticationInjector
-  def self.token=(token)
-    @token = token
-  end
-
-  def self.token
-    @token
-  end
-
-  def self.reset!
-    @token = nil
-  end
-
-  def initialize(app)
-    @app = app
-  end
-
-  def call(env)
-    if token = self.class.token
-      env['HTTP_AUTHORIZATION'] = "Bearer #{token}"
-    end
-
-    @app.call(env)
-  end
-end
-
-ENV['QS_AUTH_BACKEND_URL'] = 'http://auth-backend.dev'
-
-API_APP  = API.new
-AUTH_APP = Auth::Backend::App.new(test: true)
 
 client = Rack::Client.new {
   use AuthenticationInjector
 
   run API_APP
 }
-
-module Auth
-  class Client
-    alias raw_initialize initialize
-    def initialize(url, options = {})
-      raw_initialize(url, options.merge(adapter: [:rack, AUTH_APP]))
-    end
-  end
-end
 
 sample_data = {
   'null' => nil,
@@ -61,9 +19,7 @@ sample_data = {
   'set' => {'key' => 'value', 'second' => 'value2', 'third' => [7, 'yip', {'inner'  => 'hash'}]}
 }
 
-require 'auth-backend/test_helpers'
-auth_helpers = Auth::Backend::TestHelpers.new(AUTH_APP)
-token = auth_helpers.get_token
+token = AUTH_HELPERS.get_token
 
 describe "Datastore::Backend API" do
   before do
