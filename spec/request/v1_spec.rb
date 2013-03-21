@@ -21,10 +21,14 @@ sample_data = {
 
 token = AUTH_HELPERS.get_token
 
+app = AUTH_HELPERS.create_app!
+app_token = AUTH_HELPERS.get_app_token(app[:id], app[:secret])
+
 describe "Datastore::Backend API" do
   before do
     @entity1 = UUID.new.generate
     @entity2 = UUID.new.generate
+    AuthenticationInjector.reset!
   end
 
   after do
@@ -35,7 +39,6 @@ describe "Datastore::Backend API" do
   describe "data sets" do
     it "can't access the api unauthenticated" do
       client.post("/v1/#{@entity1}", {}, JSON.dump(sample_data)).status.should eq 403
-      client.post("/v1/", {}, JSON.dump(sample_data)).status.should eq 403
 
       response = client.get("/v1/#{@entity1}")
       response.status.should eq 403
@@ -46,7 +49,7 @@ describe "Datastore::Backend API" do
 
     describe "authenticated" do
       before do
-        AuthenticationInjector.token = token
+        AuthenticationInjector.token = app_token
       end
 
       after do
@@ -66,14 +69,10 @@ describe "Datastore::Backend API" do
         response_matches(response, @entity1, sample_data).should be true
       end
 
-      it "can create data sets without an UUID" do
+      it "cannot create data sets without an UUID" do
         response = client.post("/v1/", {}, JSON.dump(sample_data))
-        response.status.should eq 201
-
-        uuid = JSON.parse(response.body)['uuid']
-        uuid.should_not be_nil
-        uuid.should_not be_empty
-        response_matches(response, uuid, sample_data).should be true
+        response.status.should eq 405
+        response.body.empty?.should be_true
       end
 
       it "can read data set after writing it" do

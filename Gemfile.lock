@@ -143,6 +143,7 @@ GEM
     multipart-post (1.2.0)
     newrelic_rpm (3.5.8.72)
     nokogiri (1.5.6)
+    nokogiri (1.5.6-java)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)

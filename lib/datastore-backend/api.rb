@@ -39,6 +39,26 @@ module Datastore::Backend
       def connection
         @connection ||= Connection.create
       end
+
+      def own_data?(uuid)
+        @token_owner['uuid'] == uuid
+      end
+
+      def system_level_privileges?
+        @token_owner['type'] == 'app'
+      end
+
+      def is_authorized_to_access?(uuid)
+        system_level_privileges? || own_data?(uuid)
+      end
+
+      def prevent_access!
+        error!('Unauthenticated', 403)
+      end
+
+      def uuid
+        params[:uuid]
+      end
     end
 
     before do
@@ -47,7 +67,8 @@ module Datastore::Backend
       unless request.env['REQUEST_METHOD'] == 'OPTIONS'
         error!('Unauthenticated', 403) unless request.env['HTTP_AUTHORIZATION']
         token = request.env['HTTP_AUTHORIZATION'].gsub(/^Bearer\s+/, '')
-        error!('Unauthenticated', 403) unless connection.auth.token_valid?(token)
+        @token_owner = connection.auth.token_owner(token)
+        prevent_access! unless @token_owner
       end
     end
 
@@ -69,6 +90,8 @@ module Datastore::Backend
     end
 
     get '/batch' do
+      prevent_access! unless system_level_privileges?
+
       uuids = params[:uuids]
       uuids = JSON.parse(uuids) if uuids.kind_of?(String)
 
@@ -78,30 +101,34 @@ module Datastore::Backend
     end
 
     get '/:uuid' do
-      set = DataSet.where(entity: params[:uuid]).first
-      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+      prevent_access! unless is_authorized_to_access?(uuid)
+
+      set = DataSet.where(entity: uuid).first
+      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: uuid) unless set
       response_from_set set
     end
 
     post '/:uuid' do
-      create_set(params[:uuid])
-    end
+      prevent_access! unless is_authorized_to_access?(uuid)
 
-    post '/' do
-      create_set(UUID.new.generate)
+      create_set(uuid)
     end
 
     put '/:uuid' do
-      set = DataSet.where(entity: params[:uuid]).first
-      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+      prevent_access! unless is_authorized_to_access?(uuid)
+
+      set = DataSet.where(entity: uuid).first
+      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: uuid) unless set
 
       set.update_attributes(payload: payload)
       response_from_set set
     end
 
     put '/:uuid/*key' do
-      set = DataSet.where(entity: params[:uuid]).first
-      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: params[:uuid]) unless set
+      prevent_access! unless is_authorized_to_access?(uuid)
+
+      set = DataSet.where(entity: uuid).first
+      raise Mongoid::Errors::DocumentNotFound.new(DataSet, entity: uuid) unless set
 
       set.partial_update_attributes(params[:key], payload)
       response_from_set set

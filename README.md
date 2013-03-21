@@ -29,7 +29,7 @@ with ``/v1``!**
 
 ##### Parameters
 
-- **UUID** [URL] [OPTIONAL]: The UUID of the entity the data set should be created for. If not provided a new UUID is generated.
+- **UUID** [URL]: The UUID of the entity the data set should be created for
 
 ##### Body
 JSON encoded hash to be stored.
@@ -210,6 +210,8 @@ Reason for the error encoded on JSON. Example:
 
 ### Retrieve a batch of data sets
 
+Batch requests may only be issued by authorized clients of the type ``app``.
+
 #### Request
 
 **GET** ``/batch``
@@ -251,7 +253,7 @@ An entity is anything that is described by a 128bit UUID as described in [RFC 41
 
 ### Authorized Party
 
-An authorized party is either the owner of the entity, the entity itself or any party authorized to act on their behalf by those two. The specific semantics of this has yet to be defined.
+Each request has to be authenticated by an OAuth token complying with the Quarter Spiral authentication guidelines. An authorized party for any entity is either an authorized client with the type ``user`` and the same UUID as the entity or any authorized client with the type ``app``.
 
 ### Data Set
 

@@ -1,3 +1,7 @@
+# 0.0.18 WIP
+
+* Adds authorization to the datastore
+
 # 0.0.17
 
 * Fixes Ruby version on Heroku
