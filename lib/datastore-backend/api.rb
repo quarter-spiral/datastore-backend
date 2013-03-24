@@ -69,7 +69,7 @@ module Datastore::Backend
     end
 
     get '/batch' do
-      uuids = params[:uuids]
+      uuids = params[:uuids] || []
       uuids = JSON.parse(uuids) if uuids.kind_of?(String)
 
       sets = DataSet.where(entity: {'$in' => uuids})

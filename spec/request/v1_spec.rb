@@ -100,6 +100,12 @@ describe "Datastore::Backend API" do
         )
       end
 
+      it "retrieves an empty object when retrieving a batch with an empty uuids array" do
+        response = client.get("/v1/batch?")
+        response.status.should eq 200
+        JSON.parse(response.body).should eq({})
+      end
+
       it "errors out when creating a second data set for the same entity" do
         client.post("/v1/#{@entity1}", {}, JSON.dump(sample_data))
         response = client.post("/v1/#{@entity1}", {}, JSON.dump({}))

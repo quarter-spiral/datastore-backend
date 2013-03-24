@@ -1,3 +1,7 @@
+# 0.0.18 WIP
+
+* Fixes small bug in batch UUID retrieval
+
 # 0.0.17
 
 * Fixes Ruby version on Heroku
