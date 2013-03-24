@@ -1,4 +1,4 @@
-# 0.0.18 WIP
+# 0.0.18
 
 * Fixes small bug in batch UUID retrieval
 
