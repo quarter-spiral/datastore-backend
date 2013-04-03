@@ -1,4 +1,4 @@
-# 0.0.19 / Unreleased
+# 0.0.19 / 2013-04-02
 
 * Adds authorization to the datastore
 
