@@ -1,3 +1,7 @@
+# 0.0.19 / Unreleased
+
+* Adds authorization to the datastore
+
 # 0.0.18
 
 * Fixes small bug in batch UUID retrieval
