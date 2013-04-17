@@ -1,4 +1,4 @@
-# 0.0.20 / Unreleased
+# 0.0.20 / 2013-04-17
 
 * Adds caching auth-client
 
