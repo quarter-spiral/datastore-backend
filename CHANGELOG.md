@@ -1,3 +1,7 @@
+# 0.0.20 / Unreleased
+
+* Adds caching auth-client
+
 # 0.0.19 / 2013-04-02
 
 * Adds authorization to the datastore

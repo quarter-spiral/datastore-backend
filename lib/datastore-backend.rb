@@ -4,6 +4,9 @@ module Datastore
   end
 end
 
+require 'cache-client'
+require 'cache-backend-iron-cache'
+
 require 'datastore-backend/version'
 require 'datastore-backend/data_set'
 require 'datastore-backend/connection'
