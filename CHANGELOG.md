@@ -1,3 +1,7 @@
+# 0.0.21 / Unreleased
+
+* Bumps client dependencies
+
 # 0.0.20 / 2013-04-17
 
 * Adds caching auth-client

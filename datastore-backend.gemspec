@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rack-jsonp-middleware', '0.0.5'
   gem.add_dependency 'json', '~> 1.7.7'
   gem.add_dependency 'uuid'
-  gem.add_dependency 'auth-client', ">= 0.0.16"
+  gem.add_dependency 'auth-client', ">= 0.0.17"
   gem.add_dependency 'ping-middleware', '~> 0.0.2'
   gem.add_dependency 'grape_newrelic', '~> 0.0.3'
   gem.add_dependency 'cache-client', '~> 0.0.4'
