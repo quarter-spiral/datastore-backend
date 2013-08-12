@@ -9,4 +9,5 @@ use Rack::JSONP
 require 'ping-middleware'
 use Ping::Middleware
 
+use Qs::Request::Tracker::Middleware
 run Datastore::Backend::API

@@ -6,6 +6,8 @@ end
 
 require 'cache-client'
 require 'cache-backend-iron-cache'
+require 'qs/request/tracker'
+require 'qs/request/tracker/service_client_extension'
 
 require 'datastore-backend/version'
 require 'datastore-backend/data_set'
