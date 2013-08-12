@@ -1,4 +1,4 @@
-# 0.0.22 / Unreleased
+# 0.0.22 / 2013-08-12
 
 * Fixes service client request tracking
 
