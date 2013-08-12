@@ -6,8 +6,6 @@ end
 
 require 'cache-client'
 require 'cache-backend-iron-cache'
-require 'qs/request/tracker'
-require 'qs/request/tracker/service_client_extension'
 
 require 'datastore-backend/version'
 require 'datastore-backend/data_set'
@@ -24,3 +22,6 @@ mongo_config_path = ENV['DATASTORE_BACKEND_MONGOID_CONFIG']
 mongo_config_path ||= File.expand_path('./config/mongoid.yml', Datastore::Backend::ROOT)
 
 Mongoid.load!(mongo_config_path)
+
+require 'qs/request/tracker'
+require 'qs/request/tracker/service_client_extension'

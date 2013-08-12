@@ -1,3 +1,7 @@
+# 0.0.22 / Unreleased
+
+* Fixes service client request tracking
+
 # 0.0.21 / 2013-08-12
 
 * Adds getsentry.com exception tracking
